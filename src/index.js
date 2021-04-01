@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-
+import { BookProvider } from './components/Context/BookContext';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import 'react-toastify/dist/ReactToastify.css';
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<BookProvider>
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>
+	</BookProvider>,
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
