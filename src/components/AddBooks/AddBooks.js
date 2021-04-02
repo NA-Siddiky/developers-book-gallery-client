@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import { Button, Col } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 const AddBooks = () => {
 
@@ -13,7 +14,7 @@ const AddBooks = () => {
     const onSubmit = data => {
         console.log(book);
 
-        const url = `http://localhost:5000/addBook`;
+        const url = `https://banana-surprise-70079.herokuapp.com/addBook`;
         fetch(url, {
             method: 'POST',
             headers: {
@@ -22,12 +23,13 @@ const AddBooks = () => {
             body: JSON.stringify(book)
         })
             .then(res => console.log('server side response', res))
+        toast.success('Added Successfully');
 
         data.preventDefault();
     };
 
     const handleAddBook = (e) => {
-        console.log(e.target.name);
+        // console.log(e.target.name);
         if (e.target.name === 'book') {
             const name = (book.name = e.target.value);
             setBook({ ...book, name });
@@ -41,7 +43,7 @@ const AddBooks = () => {
     };
 
     const handleImageUpload = event => {
-        console.log(event.target.files[0])
+        // console.log(event.target.files[0])
         const imageData = new FormData();
         imageData.set('key', 'bc1891d9e3a9ddc7763a8b1ba4e7c6bd');
         imageData.append('image', event.target.files[0]);
@@ -60,6 +62,7 @@ const AddBooks = () => {
 
     return (
         <div>
+            <h2>Adding a Book</h2>
             <Form onSubmit={(e) => onSubmit(e)}>
                 <Form.Row>
                     <Form.Group as={Col} controlId="formGridEmail">

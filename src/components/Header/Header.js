@@ -11,7 +11,7 @@ const Header = () => {
 	const { isSignedIn, name } = user;
 
 	const handleSignOut = () => {
-		console.log('Sign out clicked');
+		// console.log('Sign out clicked');
 		firebase
 			.auth()
 			.signOut()
@@ -37,7 +37,7 @@ const Header = () => {
 					<h4>Developers Book Gallery</h4>
 				</Link>
 				<div
-					className="collapse navbar-collapse justify-content-end"
+					className=" navbar-collapse justify-content-end"
 					id="navbarSupportedContent"
 				>
 					<ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -52,7 +52,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/admin">
+							<Link className="nav-link" to="/admin/addproduct">
 								Admin
 							</Link>
 						</li>

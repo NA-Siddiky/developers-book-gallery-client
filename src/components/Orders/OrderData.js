@@ -1,8 +1,10 @@
+import { Button } from 'react-bootstrap';
 import React from 'react';
+import { Table } from 'react-bootstrap';
 
 function OrderData(props) {
 	const {
-		authorName,
+		author,
 		bookName,
 		date,
 		email,
@@ -10,17 +12,28 @@ function OrderData(props) {
 		quantity,
 		imgUrl,
 	} = props.order;
+	// console.log(props.order);
+
+	const handleConfirm = ()=>{
+		alert("Your Order Placed Successfully.");
+
+	} 
+
 	return (
-		<div className="border p-5 bg-primary m-2">
-			<img style={{ width: '70px', height: '70px' }} src={imgUrl} alt="" />
-			<p>{authorName}</p>
-			<p>{bookName}</p>
-			<p>{date}</p>
-			<p>{email}</p>
-			<p>{price}</p>
-			<p>{quantity}</p>
-			{props.children}
-		</div>
+		<>
+			<tr>
+				<td>{date}</td>
+				<td>{bookName}</td>
+				<td>{author}</td>
+				<td>{quantity}</td>
+				<td>{email}</td>
+				<td>{price}</td>
+				<td><Button onClick={handleConfirm} variant="success">Confirm</Button></td>
+				{props.children}
+			</tr>
+
+		</>
+
 	);
 }
 

@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { Table } from 'react-bootstrap';
+import { useHistory, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { BookContext } from '../Context/BookContext';
+import { toast } from 'react-toastify';
 
 const Checkout = () => {
 	const { user } = useContext(BookContext);
@@ -11,10 +14,12 @@ const Checkout = () => {
 
 	const { email } = user;
 	useEffect(() => {
-		fetch(`http://localhost:5000/checkout/${id}`)
+		fetch(`https://banana-surprise-70079.herokuapp.com/checkout/${id}`)
 			.then((response) => response.json())
 			.then((data) => setBook(data[0]));
 	}, [id]);
+
+	const history = useHistory();
 
 	const checkoutBtn = () => {
 		const orderInfo = {
@@ -27,22 +32,46 @@ const Checkout = () => {
 			date: new Date(),
 		};
 		// console.log(orderInfo);
-		axios.post(`http://localhost:5000/saveorder`, orderInfo).then((res) => {
-			console.log(res);
+		axios.post(`https://banana-surprise-70079.herokuapp.com/saveorder`, orderInfo).then((res) => {
+			// console.log(res);
+			toast.success('Checkout Successfully');
+			history.push("/")
 		});
 	};
 	return (
-		<div>
-			<h1>This is Checkout</h1>
-			{/* <p>{book}</p> */}
-			{book.name}
-			<div>
-				<h4>name:- {book.name}</h4>
-				<h4>Author{book.author}</h4>
-				<h4>Price:- ${book.price}</h4>
-				<button className="btn-primary btn" onClick={checkoutBtn}>
-					Checkout
-				</button>
+		<div className="container">
+			<h1>Let's Checkout</h1>
+			<div className="row">
+				<div className="col-md-8">
+					<Table striped bordered hover size="sm">
+						<thead>
+							<tr>
+								<th>Sl</th>
+								<th>Discription</th>
+								<th>Quentity</th>
+								<th>Price</th>
+								<th>Confirm Checkout</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>{book.name}</td>
+								<td>1</td>
+								<td>{book.price}</td>
+								<td><Link to path="/"> <button className="btn-primary btn" onClick={checkoutBtn}>Confirm</button> </Link></td>
+							</tr>
+						</tbody>
+					</Table>
+				</div>
+
+				<div className="col-md-4">
+					<img style={{ width: '200px' }} src={book.url} alt="" />
+					<h5>{book.name}</h5>
+					<h6>Author: {book.author}</h6>
+					<h5>Price: ৳{book.price}</h5>
+					<h3>Please confirm your Order.</h3>
+				</div>
 			</div>
 		</div>
 	);

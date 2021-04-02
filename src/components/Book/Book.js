@@ -1,19 +1,23 @@
+import { Button } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
+import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './Book.css'
 
 const Book = ({ book }) => {
 
     // console.log(book);
 
     return (
-        <div className="col-md-3">
-            <img style={{ height: '300px', width: '300px' }} src={book.url} alt="" />
-
-            <h4>Book Name : {book.name}</h4>
-            <h5>Author: {book.author}</h5>
-            <h5>Price: $ {book.price} <Link to={`/checkout/${book._id}`}>Bye Now</Link></h5>
-
-
+        <div className="homeView p-1 d-flex flex-wrap">
+            <Card style={{ width: '18rem' }}            >
+                <Card.Img variant="top" src={book.url} />
+                <Card.Body>
+                    <Card.Title>{book.name}</Card.Title>
+                    <Card.Text>Author: {book.author}</Card.Text>
+                    <h5>Price: ৳ {book.price} <Link to={`/checkout/${book._id}`}><Button variant="primary">Buy Now</Button></Link></h5>
+                </Card.Body>
+            </Card>
         </div>
     );
 };
